@@ -43,6 +43,7 @@
   	<location>/02ImplicitObject/Exception.jsp</location>
   </error-page> -->
   
+  <!-- 오라클 접속 정보를 컨텍스트 초기화 파라미터로 등록 -->
   <context-param>
   	<param-name>OracleDriver</param-name>
   	<param-value>oracle.jdbc.OracleDriver</param-value>
