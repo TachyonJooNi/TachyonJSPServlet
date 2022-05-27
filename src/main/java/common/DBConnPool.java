@@ -44,6 +44,7 @@ public class DBConnPool {
 			4.커넥션풀에 생성해 놓은 커넥션 객체를 가져다가 사용한다.
 			*/
 			con = source.getConnection();
+			
 			System.out.println("DB 커넥션 풀 연결 성공");
 		}
 		catch(Exception e) {
