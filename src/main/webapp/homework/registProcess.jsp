@@ -19,9 +19,17 @@ dto.setEmail(request.getParameter("email1")
 dto.setCellphone(request.getParameter("mobile1") 
 		+ request.getParameter("mobile2") 
 		+ request.getParameter("mobile3"));
-dto.setPhone(request.getParameter("tel1") 
+
+if(!(request.getParameter("tel1").equals("") &&
+		request.getParameter("tel2").equals("") &&
+		request.getParameter("tel3").equals(""))) {
+	dto.setPhone(request.getParameter("tel1") 
 		+ request.getParameter("tel2") 
-		+ request.getParameter("tel3"));
+		+ request.getParameter("tel3"));	
+}
+else {
+	dto.setPhone(null);
+}
 
 int affected = dao.memberInsert(dto);
 

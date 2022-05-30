@@ -182,7 +182,6 @@
             return false;
           }
         }
-        }
     }
 
       function idCheck(form) {

@@ -28,7 +28,9 @@ if(searchWord != null) {
 //board테이블에 저장된 게시물의 갯수를 카운트 한다.
 int totalCount = dao.selectCount(param);
 //목록에 출력할 레코드를 추출한다.
-List<BoardDTO> boardLists = dao.selectList(param);
+param.put("start", 1);
+param.put("end", 10);
+List<BoardDTO> boardLists = dao.selectListPage(param);
 //만약 검색어가 있다면 해당 조건에 맞는 게시물만 selet해야한다.
 //따라서 검색어 여부에 따라 where절이 조건부로 추가된다.
 
