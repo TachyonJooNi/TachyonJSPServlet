@@ -1,3 +1,4 @@
+<%@page import="utils.JSFunction"%>
 <%@page import="membership.MembershipDTO"%>
 <%@page import="membership.MembershipDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -36,15 +37,20 @@ int affected = dao.memberInsert(dto);
 dao.close();
 
 if(affected != 0){
+	JSFunction.alertLocation("회원가입 성공", "memberLogin.jsp", out);
+	
+/* 	작동이 지 맘대로임 이상함
 	out.println("<script>");
 	out.println("alert('회원가입 성공');");
 	out.println("location.href='memberLogin.jsp';");
-	out.println("</script>");
+	out.println("</script>"); */
 }
 else {
-	out.println("<script>");
+	JSFunction.alertLocation("회원가입 오류", "memberRegist.jsp", out);
+	
+/* 	out.println("<script>");
 	out.println("alert('회원가입 오류');");
 	out.println("location.href='memberRegist.jsp';");
-	out.println("</script>");
+	out.println("</script>"); */
 }
 %>

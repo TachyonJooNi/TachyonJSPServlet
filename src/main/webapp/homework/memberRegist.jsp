@@ -135,7 +135,7 @@
         }
         
         if (
-              !(8 < form.userid.value.length && form.userid.value.length < 16)
+              !(8 <= form.userid.value.length && form.userid.value.length <= 16)
             ) {
               alert("아이디는 8~16자만 가능합니다");
               form.userid.focus();
@@ -164,13 +164,16 @@
         }
 
         // 영문/숫자/특수문자 조합 6~20자 이상 입력해주세요.
-        if (!(6 < form.pass1.value.length && form.userid.pass1.length < 20)) {
+        if (!(6 <= form.pass1.value.length && form.userid.pass1.length <= 20)) {
           alert("비밀번호는 6~20자만 가능합니다");
           form.pass1.focus();
           return false;
         }
 
+        //비밀번호에 각각이 포함되어있는지 여부를 파악할수는 없다.
+        //너무 귀찮고 길어지니 자바스크립트 정규식관련된 공부를 하고 작성해보자.
         for (var i = 0; i < form.pass1.value.length; i++) {
+        	var numcount, charcount, sybolcount = 0;
           if (
             !(
               form.pass1.value[i].charCodeAt(0) >= 33 &&
@@ -194,9 +197,8 @@
     }
 
       function commonFocusMove(obj, charLen, nextObj) {
-      	var n = document.getElementsByName(nextObj);
       	if (charLen == obj.value.length) {
-        	n[0].focus();
+      		document.getElementsByName(nextObj)[0].focus();
       	}
     }
       
