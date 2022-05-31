@@ -260,7 +260,17 @@ public class BoardDAO extends JDBConnect {
 		between절 대신 비교연산자를 사용하면 다음과 같이 수정할 수 있다.
 		=> where ?<=rNum and rNum<=?
 		*/
-	
+		
+		//스트림버퍼를 사용하는 방식
+		//문자열을 연결할때는 StringBuffer클래스를 사용하면 유용하다.
+		/*
+		StringBuffer sb = new StringBuffer(); 
+		sb.append("select * from ");
+		sb.append("	(select tb.*, rownum rNum from ");
+		sb.append("		(select * from board where order by num desc) tb) ");
+		sb.append(" where rNum between 1 and 10;"); sb.toString();
+		*/
+	        
 		try {
 			psmt = con.prepareStatement(query);
 			/*

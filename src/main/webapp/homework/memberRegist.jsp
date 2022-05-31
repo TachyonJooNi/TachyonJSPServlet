@@ -192,8 +192,7 @@
     }
 
       function inputEmail(form) {
-      	var email = form.email_domain.value;
-      	form.email2.value = email;
+      	form.email2.value = form.email_domain.value;
     }
 
       function commonFocusMove(obj, charLen, nextObj) {
@@ -202,9 +201,6 @@
       	}
     }
       
-      function grammarcheck() {
-		
-	}
     </script>
   </head>
   <body>
