@@ -31,7 +31,6 @@ for(int i=1 ; i<=100 ; i++){
 	iResult = dao.insertWrite(dto);
 }
 
-
 dao.close();
 
 //insert의 결과는 1아니면 0이기 때문에 1을 조건으로 사용
