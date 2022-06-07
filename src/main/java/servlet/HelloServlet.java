@@ -21,6 +21,8 @@ public class HelloServlet extends HttpServlet{
 			throws ServletException, IOException {
 		
 		//리퀘스트 영역에 속성값을 저장한다.
+		//지금은 간단한 문자열을 넣었지만 리퀘스트 영역과 같은 4가지 영역에는 객체를 포함한
+		//모든 데이터를 올릴수있다.
 		req.setAttribute("message", "Hello Servlst..!!");
 		//View에 해당하는 JSP페이지로 포워드 한다.
 		req.getRequestDispatcher("/13Servlet/HelloServlet.jsp").forward(req, resp);
