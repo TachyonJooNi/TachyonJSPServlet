@@ -187,4 +187,88 @@ public class MVCBoardDAO extends DBConnPool {
 		}
 		catch (Exception e) {}
 	}
+	
+	//수정,삭제전 해당 게시물의 패스워드를 검증한다.
+	//즉, 게시물의 일련번호와 패스워드를 통해 조건에 부합하는 레코드가 있는지 확인한다.
+	public boolean confirmPassword(String pass, String idx) {
+		boolean isCorr = true;
+		try {
+			String sql = "SELECT COUNT(*) FROM mvcboard WHERE pass=? AND idx=?";
+			psmt = con.prepareStatement(sql);
+			psmt.setString(1, pass);
+			psmt.setString(2, idx);
+			rs = psmt.executeQuery();
+
+			/*
+			select문에 count()함수를 사용하는 경우 조건(where절)에 만족하는 레코드가
+			없을때는 0, 만족하는 레코드가 있을때는 1이상의 정수값이 반환된다.
+			즉 어떤경우에도 결과값이 있으므로 next() 호출시 if문이 필요하지 않다.
+			*/
+			rs.next();
+			/*
+			if(rs.next())
+				=> 일반적인 select문을 사용하는 경우에 1개의 레코드만 반환될때 사용한다.
+				주로 일련번호(프라이머리키, 유니크키)를 조건으로 추가하는 경우인데, 
+				만족하는 레코드가 없다면 if()없이 next()를 사용하면 에러가 발생해서 사용한다.
+			while(rs.next())
+				=> select의 결과가 2개 이상일때 사용된다. 주로 게시판의 목록과 같이
+				여러개의 레코드가 반환되는 경우에 사용한다.
+			*/
+			
+			//일치하는 결과가 없는 경우 false를 반환한다.
+			//--rs.getInt(1)은 select로 가져온 첫번째 인덱스인 놈. 즉, COUNT(*)이다.
+			if(rs.getInt(1) == 0) {
+				isCorr = false;
+			}
+		}
+		catch (Exception e) {
+			//예외가 발생하면 검증이 안된것이므로 이때도 false를 반환한다.
+			isCorr = false;
+			e.printStackTrace();
+		}
+		//검증이 완료되었을때만 true를 반환한다.
+		return isCorr;
+	}
+	//게시물 삭제하기
+	public int deletePost(String idx) {
+		int result = 0;
+		try {
+			String query = "DELETE FROM mvcboard WHERE idx=?";
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, idx);
+			result = psmt.executeUpdate();
+		}
+		catch (Exception e) {
+			System.out.println("게시물 삭제 중 예외 발생");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	//게시물 수정 처리
+	public int updatePost(MVCBoardDTO dto) {
+		int result = 0;
+		try {
+			//update쿼리문 작성
+			String query = "UPDATE mvcboard "
+					+ " SET title=?, name=?, content=?, ofile=?, sfile=? "
+					+ " WHERE idx=? AND pass=?";
+			//동적쿼리문 실행을 위해 prepared객체 생성 및 인파라미터 설정
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, dto.getTitle());
+			psmt.setString(2, dto.getName());
+			psmt.setString(3, dto.getContent());
+			psmt.setString(4, dto.getOfile());
+			psmt.setString(5, dto.getSfile());
+			psmt.setString(6, dto.getIdx());
+			psmt.setString(7, dto.getPass());
+			
+			//쿼리 실행 및 결과 반환(update된 행의 갯수)
+			result = psmt.executeUpdate();
+		}
+		catch (Exception e) {
+			System.out.println("게시물 수정 중 예외 발생");
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

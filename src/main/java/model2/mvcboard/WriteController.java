@@ -51,7 +51,7 @@ public class WriteController extends HttpServlet {
 		//만약 글 작성시 파일을 첨부하지 않더라도, 객체는 생성된다. 만약 객체가
 		//생성되지 않는다면 나머지 폼값을 받을 수 없기 때문이다.
 		if(mr == null) {
-			JSFunction.alertLocation(resp, "첨부 파일이 제한 용량을 초과합니다.",
+			JSFunction.alertLocation(resp, "제한용량초과 or 디렉토리 경로를 확인하세요.",
 						"../mvcboard/write.do");
 			return;
 		}
