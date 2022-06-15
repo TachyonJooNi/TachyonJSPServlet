@@ -86,7 +86,7 @@
   <!-- 한 페이지에 출력할 게시물의 갯수 -->
   <context-param>
 	<param-name>POSTS_PER_PAGE</param-name>
-	<param-value>2</param-value>
+	<param-value>5</param-value>
   </context-param>
   <!-- 한 블럭당 출력할 페이지번호의 갯수 -->
   <context-param>
@@ -165,9 +165,10 @@
   	<url-pattern>/mvcboard/write.do</url-pattern>
   </servlet-mapping>
   
+  <!-- 파일 업로드 제한용량 : 10메가 (.mp3 올릴려고 늘림) -->
   <context-param>
   	<param-name>maxPostSize</param-name>
-  	<param-value>1024000</param-value>
+  	<param-value>10240000</param-value>
   </context-param>
   
   
